@@ -1,0 +1,6 @@
+CREATE DATABASE leads DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+
+CREATE USER 'leads_user'@'%' IDENTIFIED BY '';
+GRANT ALL PRIVILEGES ON leads.* TO 'leads_user'@'%';
+
+FLUSH PRIVILEGES;

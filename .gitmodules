@@ -1,0 +1,3 @@
+[submodule "projects/leads"]
+	path = projects/leads
+	url = git@github.com:mvbassalobre/leads-v2.git
