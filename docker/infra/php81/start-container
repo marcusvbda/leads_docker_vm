@@ -12,8 +12,6 @@ chmod -R ugo+rw /.composer
 
 composer install
 
-git config --global --add safe.directory /var/www/html
-
 if [ $# -gt 0 ]; then
     exec gosu $WWWUSER "$@"
 else
