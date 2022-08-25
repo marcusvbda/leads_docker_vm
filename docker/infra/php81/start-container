@@ -11,7 +11,6 @@ fi
 chmod -R ugo+rw /.composer
 
 composer install
-php artisan queue:work --verbose --tries=3 --timeout=90
 
 git config --global --add safe.directory /var/www/html
 
