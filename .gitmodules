@@ -1,3 +1,6 @@
 [submodule "projects/leads"]
 	path = projects/leads
 	url = git@github.com:mvbassalobre/leads-v2.git
+[submodule "projects/wpp-api"]
+	path = projects/wpp-api
+	url = git@github.com:marcusvbda/whatsapp-api.git

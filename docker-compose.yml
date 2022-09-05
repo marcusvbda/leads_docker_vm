@@ -28,6 +28,30 @@ services:
       MYSQL_ROOT_PASSWORD: ""
     volumes:
       - ./docker/infra/mysql/entrypoint:/docker-entrypoint-initdb.d
+  
+  wpp-api:
+    container_name: wpp-api
+    build:
+      context: ./projects/wpp-api
+      dockerfile: Dockerfile
+    image: allburov/whatsapp-http-api
+    restart: always
+    ports:
+      - 3000:3000
+    shm_size: "1gb"
+    networks:
+      - web
+    environment:
+      - WHATSAPP_DOWNLOADS_FOLDER=/app/files/downloads
+    volumes:
+      - './projects/wpp-api/:/var/www/html'
+    depends_on:
+      - traefik
+    labels:
+      - "traefik.enable=true"
+      - "traefik.docker.network=web"
+      - "traefik.http.routers.wpp.rule=Host(`whatsapp-sender.local`)"
+      - 'traefik.http.services.wpp.loadbalancer.server.port=3000'
       
   leads:
     container_name: leads
@@ -45,11 +69,13 @@ services:
     depends_on:
       - mysql
       - traefik
+      - wpp-api
     labels:
       - "traefik.enable=true"
       - "traefik.docker.network=web"
       - "traefik.http.routers.leads.rule=Host(`leads.local`)"
       - 'traefik.http.services.leads.loadbalancer.server.port=80'
+      
 networks:
   web:
     external: true
