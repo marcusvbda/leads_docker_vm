@@ -31,11 +31,11 @@ services:
   
   wpp-api:
     container_name: wpp-api
+    tty: true
+    restart: unless-stopped
     build:
       context: ./projects/wpp-api
-      dockerfile: Dockerfile
-    image: allburov/whatsapp-http-api
-    restart: always
+      dockerfile: DockerfileDev
     ports:
       - 3000:3000
     shm_size: "1gb"
@@ -44,7 +44,9 @@ services:
     environment:
       - WHATSAPP_DOWNLOADS_FOLDER=/app/files/downloads
     volumes:
-      - './projects/wpp-api/:/var/www/html'
+      - ./projects/wpp-api/src/:/usr/src/app/src
+      - ./projects/wpp-api/tokens:/app/tokens
+      - ./projects/wpp-api/files:/app/files
     depends_on:
       - traefik
     labels:
